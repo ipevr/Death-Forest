@@ -10,6 +10,9 @@ namespace DeathForest.Controller
         [SerializeField] int trees = 20;
         [SerializeField] int treesAddedPerLevel = 5;
 
+        int level = 1;
+        int score = 0;
+
         public UnityEvent OnNextLevelPrepared;
 
         public int GetTreeNumber()
@@ -17,10 +20,23 @@ namespace DeathForest.Controller
             return trees;
         }
 
+        public int GetCurrentLevel()
+        {
+            return level;
+        }
+
+        public int GetCurrentScore()
+        {
+            return score;
+        }
+
         public void LevelCompleted()
         {
             trees += treesAddedPerLevel;
+            level++;
             OnNextLevelPrepared.Invoke();
         }
+
+
     }
 }
