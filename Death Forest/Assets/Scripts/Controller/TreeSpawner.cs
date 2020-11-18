@@ -6,7 +6,7 @@ namespace DeathForest.Controller
 {
     public class TreeSpawner : MonoBehaviour
     {
-        [SerializeField] GameObject treePrefab = null;
+        [SerializeField] GameObject[] treePrefabs = null;
         [SerializeField] float upperLimit = 10f;
         [SerializeField] float lowerLimit = 0f;
         [SerializeField] float leftLimit = -10f;
@@ -31,7 +31,7 @@ namespace DeathForest.Controller
 
             for (int i = 0; i < gameManager.GetTreeNumber(); i++)
             {
-                GameObject tree = Instantiate(treePrefab, transform);
+                GameObject tree = Instantiate(treePrefabs[Random.Range(0, treePrefabs.Length)], transform);
                 float xPos = Random.Range(leftLimit, rightLimit);
                 float yPos = Random.Range(lowerLimit, upperLimit);
 

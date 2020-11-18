@@ -14,11 +14,15 @@ namespace DeathForest.UI
         [SerializeField] Text treesText = null;
 
         GameManager gameManager;
+        LifeUI lifeUi;
 
         private void Awake()
         {
             gameManager = FindObjectOfType<GameManager>();
             gameManager.OnNextLevelPrepared.AddListener(UpdateUI);
+            gameManager.OnRepeatLevel.AddListener(UpdateUI);
+
+            lifeUi = GetComponentInChildren<LifeUI>();
         }
 
         private void Start()
@@ -31,6 +35,7 @@ namespace DeathForest.UI
             scoreText.text = gameManager.GetCurrentScore().ToString();
             levelText.text = gameManager.GetCurrentLevel().ToString();
             treesText.text = gameManager.GetTreeNumber().ToString();
+            lifeUi.UpdateLifes(gameManager.GetLifes());
         }
     }
 }

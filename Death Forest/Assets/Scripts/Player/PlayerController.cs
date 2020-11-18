@@ -30,7 +30,8 @@ namespace DeathForest.Player
         private void Awake()
         {
             gameManager = FindObjectOfType<GameManager>();
-            gameManager.OnNextLevelPrepared.AddListener(StartNewLevel);
+            gameManager.OnNextLevelPrepared.AddListener(StartAgain);
+            gameManager.OnRepeatLevel.AddListener(StartAgain);
         }
 
         private IEnumerator Start()
@@ -66,9 +67,10 @@ namespace DeathForest.Player
         public void HandleEnemyCollision()
         {
             isDead = true;
+            gameManager.PlayerDied();
         }
 
-        private void StartNewLevel()
+        private void StartAgain()
         {
             transform.position = startPos;
             levelCompleted = false;

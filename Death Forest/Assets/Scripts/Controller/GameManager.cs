@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,11 +10,14 @@ namespace DeathForest.Controller
     {
         [SerializeField] int trees = 20;
         [SerializeField] int treesAddedPerLevel = 5;
+        [SerializeField] int lifes = 3;
 
         int level = 1;
         int score = 0;
 
         public UnityEvent OnNextLevelPrepared;
+        public UnityEvent OnRepeatLevel;
+        public UnityEvent OnGameOver;
 
         public int GetTreeNumber()
         {
@@ -30,6 +34,11 @@ namespace DeathForest.Controller
             return score;
         }
 
+        public int GetLifes()
+        {
+            return lifes;
+        }
+
         public void LevelCompleted()
         {
             trees += treesAddedPerLevel;
@@ -37,6 +46,17 @@ namespace DeathForest.Controller
             OnNextLevelPrepared.Invoke();
         }
 
-
+        public void PlayerDied()
+        {
+            lifes--;
+            if (lifes < 0)
+            {
+                OnGameOver.Invoke();
+            }
+            else
+            {
+                OnRepeatLevel.Invoke();
+            }
+        }
     }
 }
